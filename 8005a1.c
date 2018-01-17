@@ -19,7 +19,7 @@
 #define CALC_VALUE "1"
 
 mpz_t dest[MAX_FACTOR]; 
-
+ 
 int main (int argc, char** argv) {
         int mechNum = 1;
         int childpid;
