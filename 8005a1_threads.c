@@ -10,8 +10,8 @@
 
 #define MAX_FACTORS	1024
 #define MECH_NUM 5
-#define CALC_VAL "11111111111111"
-
+#define CALC_VAL "11111111111111" //14 1's
+//#define CALC_VAL "12312312313"
 
 void* work(void*);
  

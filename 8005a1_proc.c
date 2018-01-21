@@ -10,6 +10,7 @@
 #define MAX_FACTORS	1024
 #define MECH_NUM 5
 #define CALC_VAL "11111111111111"
+//#define CALC_VAL "12312312313"
 
 
 mpz_t dest[MAX_FACTORS]; 
@@ -61,6 +62,8 @@ int main(int argc, char **argv)
         }
 
         while(wait(&childpid) != -1);
+        fclose(fp);
 
         return EXIT_SUCCESS;
 }
+
