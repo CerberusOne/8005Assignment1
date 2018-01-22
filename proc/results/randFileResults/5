@@ -1,0 +1,21 @@
+PID: 2310	Time: 116 usec
+Result: 
+2 * 2 * 3 * 5 * 5 * 7 * 19 * 67 * 157
+
+PID: 2308	Time: 271 usec
+Result: 
+31 * 79 * 353 * 1327
+
+PID: 2306	Time: 8511 usec
+Result: 
+5 * 71 * 92863
+
+PID: 2307	Time: 44917 usec
+Result: 
+2 * 3 * 5 * 23 * 2125463
+
+PID: 2309	Time: 84368 usec
+Result: 
+2 * 2 * 83 * 4557851
+
+Total Time: 85767 usec

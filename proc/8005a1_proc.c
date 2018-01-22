@@ -4,12 +4,18 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/time.h>
+#include <time.h>
+#include <math.h>
 #include "primedecompose.h"
 
 #define RESULT_FILE "RESULT_FILE_PROC"
 #define MAX_FACTORS	1024
 #define MECH_NUM 5
-#define CALC_VAL "11111111111111"
+#define BUFSIZE 1024
+#define STATIC_VAL "11111111111111"
+#define CALC_VAL 1000000000 
+
+int randomGen();
 
 mpz_t dest[MAX_FACTORS]; 
  
@@ -17,19 +23,31 @@ int main(int argc, char **argv)
 {
         FILE *rfp;
         int childpid;
+        struct timeval pstart, pstop;
 
         rfp = fopen(RESULT_FILE, "w");
         fclose(rfp);
-        
+
+        gettimeofday(&pstart, NULL);
+
         for(int i = 0; i < MECH_NUM; i++) {
                 if((childpid = fork()) <= 0) {
                         mpz_t n;
-                        int i, l;
+                        int i, l, r;
                         struct timeval stop, start;
                         FILE *fp;
+                        char buf[BUFSIZE];
 
-                        mpz_init_set_str(n, CALC_VAL, 10);
-                        
+                        //srand((unsigned) time(&t));
+                        srand((unsigned) time(NULL) ^ (getpid()<<16));
+                        r = randomGen();
+                        snprintf(buf, sizeof(buf), "%d", r);
+                        printf("num: %s\n", buf);
+
+                        mpz_init_set_str(n, STATIC_VAL, 10);
+                        //mpz_init_set_str(n, buf, 10);
+
+
                         //do caclulation and time it
                         gettimeofday(&start, NULL);
                         fp = fopen(RESULT_FILE, "a");
@@ -57,6 +75,19 @@ int main(int argc, char **argv)
 
         while(wait(&childpid) != -1);
 
-        return EXIT_SUCCESS;
+        gettimeofday(&pstop, NULL);
+        rfp = fopen(RESULT_FILE, "a");
+
+        fprintf(rfp, "Total Time: %ld usec\n",(pstop.tv_sec * 1000000 + pstop.tv_usec) 
+                                        - (pstart.tv_sec * 1000000 + pstart.tv_usec));
+ 
+        return 0;
+}
+
+int randomGen() {
+        int num;
+        num = rand() % CALC_VAL + CALC_VAL;
+        num = rand();
+        return num;
 }
 
