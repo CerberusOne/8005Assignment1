@@ -1,3 +1,22 @@
+/*
+ *  Source:     8005A1_threads.c
+ *
+ *  Program:    COMP8005 Assignment 1
+ *  
+ *  Functions:  main(int argc, char** argv)
+ *              void* work(void*)
+ *              int randomGen()
+ *              
+ *  Date:       Jan 22, 2018
+ *
+ *  Designer:   Aing Ragunathan
+ *
+ *  Programmer: Aing Ragunathan
+ *
+ *  Notes:      This program tests the performance of threads.
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <gmp.h>
@@ -7,8 +26,6 @@
 #include <time.h>
 #include <math.h>
 #include "primedecompose.h"
-
-//gcc -Wall -o pdec primedec.c primedecompose.c -lgmp
 
 #define MAX_FACTORS	1024
 #define MECH_NUM 5
@@ -21,6 +38,16 @@ int randomGen();
  
 pthread_mutex_t fileLock = PTHREAD_MUTEX_INITIALIZER;
 
+/*
+ *  Function:   main
+ *  Date:       Jan 11, 2018
+ *  Designer:   Aing Ragunathan
+ *  Programmer: Aing Ragunathan
+ *  Interface:  main(int argc, char** argv)
+ *  Returns:    int
+ *  Notes:      Tests the performance of multi-threading
+ *
+ */
 int main(int argc, char **argv) 
 {
         FILE *rfp;
@@ -38,13 +65,14 @@ int main(int argc, char **argv)
 
         gettimeofday(&pstart, NULL);
 /*        
+        //random
         pthread_create(&thread1, NULL, work, (void*) "1231231231");
         pthread_create(&thread2, NULL, work, (void*) "3323234233");
         pthread_create(&thread3, NULL, work, (void*) "3456789012");
         pthread_create(&thread4, NULL, work, (void*) "1341334234");
         pthread_create(&thread5, NULL, work, (void*) "1341324234");
 */
-
+        //static 
         pthread_create(&thread1, NULL, work, (void*) "1111111111");
         pthread_create(&thread2, NULL, work, (void*) "1111111111");
         pthread_create(&thread3, NULL, work, (void*) "1111111111");
@@ -109,6 +137,15 @@ void* work(void* input) {
         return NULL;
 }
 
+/*
+ *  Function:   randomGen
+ *  Date:       Jan 12, 2018
+ *  Designer:   Aing Ragunathan
+ *  Programmer: Aing Ragunathan 
+ *  Interface:  int randomGen()
+ *  Returns:    random integer
+ * 
+ */
 int randomGen(){
         int num;
         num = rand()%CALC_VAL + CALC_VAL;

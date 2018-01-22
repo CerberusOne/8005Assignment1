@@ -1,3 +1,22 @@
+/*
+ *  Source:     8005A1_proc.c
+ *
+ *  Program:    COMP8005 Assignment 1
+ *  
+ *  Functions:  main(int argc, char** argv)
+ *              int randomGen()
+ *              
+ *  Date:       Jan 22, 2018
+ *
+ *  Designer:   Aing Ragunathan
+ *
+ *  Programmer: Aing Ragunathan
+ *
+ *  Notes:      This program tests the performance of processes.
+ *
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <gmp.h>
@@ -19,6 +38,16 @@ int randomGen();
 
 mpz_t dest[MAX_FACTORS]; 
  
+/*
+ *  Function:   main
+ *  Date:       Jan 11, 2018
+ *  Designer:   Aing Ragunathan
+ *  Programmer: Aing Ragunathan
+ *  Interface:  main(int argc, char** argv)
+ *  Returns:    int
+ *  Notes:      Tests the performance of multi-processes
+ *
+ */
 int main(int argc, char **argv) 
 {
         FILE *rfp;
@@ -84,6 +113,16 @@ int main(int argc, char **argv)
         return 0;
 }
 
+
+/*
+ *  Function:   randomGen
+ *  Date:       Jan 12, 2018
+ *  Designer:   Aing Ragunathan
+ *  Programmer: Aing Ragunathan 
+ *  Interface:  int randomGen()
+ *  Returns:    random integer
+ * 
+ */
 int randomGen() {
         int num;
         num = rand() % CALC_VAL + CALC_VAL;
