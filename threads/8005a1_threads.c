@@ -31,7 +31,7 @@
 #define MECH_NUM 5
 #define BUFSIZE 1024
 #define CALC_VAL 1000000000 //14 1's
-//#define CALC_VAL "12312312313"
+#define STATIC_VAL "11111111111111"
 
 void* work(void*);
 int randomGen();
@@ -64,21 +64,21 @@ int main(int argc, char **argv)
         srand((unsigned) time(&t));
 
         gettimeofday(&pstart, NULL);
-        
+/*
         //random
         pthread_create(&thread1, NULL, work, (void*) "1231231231");
         pthread_create(&thread2, NULL, work, (void*) "3323234233");
         pthread_create(&thread3, NULL, work, (void*) "3456789012");
         pthread_create(&thread4, NULL, work, (void*) "1341334234");
         pthread_create(&thread5, NULL, work, (void*) "1341324234");
-/*
+*/
         //static 
-        pthread_create(&thread1, NULL, work, (void*) "1111111111");
-        pthread_create(&thread2, NULL, work, (void*) "1111111111");
-        pthread_create(&thread3, NULL, work, (void*) "1111111111");
-        pthread_create(&thread4, NULL, work, (void*) "1111111111");
-        pthread_create(&thread5, NULL, work, (void*) "1111111111");
-        */
+        pthread_create(&thread1, NULL, work, (void*) STATIC_VAL);
+        pthread_create(&thread2, NULL, work, (void*) STATIC_VAL);
+        pthread_create(&thread3, NULL, work, (void*) STATIC_VAL);
+        pthread_create(&thread4, NULL, work, (void*) STATIC_VAL);
+        pthread_create(&thread5, NULL, work, (void*) STATIC_VAL);
+        
         pthread_join(thread1, NULL);
         pthread_join(thread2, NULL);
         pthread_join(thread3, NULL);
@@ -107,17 +107,17 @@ void* work(void* input) {
         snprintf(buf, sizeof(buf), "%d", r);
         printf("num: %s\n", buf);
         
-//        mpz_init_set_str(n, CALC_VAL, 10); 
-        mpz_init_set_str(n, buf, 10);
+        //mpz_init_set_str(n, CALC_VAL, 10); 
+        mpz_init_set_str(n, input, 10);
         //mpz_init_set_str(n, buf, 10);
         
         pthread_mutex_lock(&fileLock);
         
         //do caclulation and time it
-        gettimeofday(&start, NULL);
         fp = fopen("RESULT_FILE_THREADS", "a");
         printf("PID: %d\n", getpid());
         fprintf(fp, "PID: %d\t", getpid());
+        gettimeofday(&start, NULL);
         l = decompose(n, dest);
         gettimeofday(&stop, NULL);
 
